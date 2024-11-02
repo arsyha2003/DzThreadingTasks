@@ -79,23 +79,20 @@ namespace DzThreadingTasks
         }
         private void GeneratingFibbonacci()
         {
-            int fibonnaciNumber = 0;
-            for(int i=0;i<int.MaxValue;i++)
+            int a = 0;
+            int b = 1;
+            for (int i=0;i<int.MaxValue;i++)
             {
                 Thread.Sleep(100);
                 fibonacciPauseEvent.Wait();
-                if (fibonacciCancelerationToken.IsCancellationRequested)
-                {
-                    break;
-                }
-                if (i<=1)
-                {
-                    listBox1.Items.Add(i);
-                }
+                if (fibonacciCancelerationToken.IsCancellationRequested) break;
+                if (i<=1) listBox1.Items.Add(i);
                 else if(i>1)
                 {
-                    fibonnaciNumber = (i-2)+(i-1);
-                    listBox1.Items.Add(fibonnaciNumber);
+                    int tmp = a;
+                    a = b;
+                    b = tmp + b;
+                    listBox1.Items.Add(b);
                 }
             }
         }
